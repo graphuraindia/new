@@ -811,7 +811,6 @@
 <script>
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Global function to display a message to the user
     function showMessage(message, type) {
         const messageDiv = document.getElementById('messageDiv');
         const alertHtml = `
@@ -824,14 +823,6 @@
         messageDiv.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // This function simulates fetching Indian states. In a real-world Google Apps Script project,
-    // you would have a corresponding function named `getIndianStates()` in your `Code.gs` file.
-    function getIndianStates() {
-        // This is mock data for the example.
-        return ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
-    }
-
-    // Set up the form and its elements after the page has fully loaded
     window.onload = function() {
       const stateDropdown = document.getElementById('state');
       
@@ -840,9 +831,7 @@
       loadingOption.disabled = true;
       stateDropdown.appendChild(loadingOption);
       
-      // We will simulate the google.script.run call with our mock function for demonstration purposes.
-      // If this were a real Apps Script project, this would be uncommented:
-      /*
+      // Ye code Apps Script se states load karega.
       google.script.run.withSuccessHandler(function(states) {
         stateDropdown.innerHTML = '<option value="">Select State</option>';
         if (states && states.length > 0) {
@@ -857,31 +846,15 @@
         console.error("Error fetching states: " + error.message);
         stateDropdown.innerHTML = '<option value="">Error loading states</option>';
       }).getIndianStates();
-      */
-
-      // Using the mock function for this standalone HTML file
-      const states = getIndianStates();
-      stateDropdown.innerHTML = '<option value="">Select State</option>';
-      if (states && states.length > 0) {
-          states.forEach(function(stateName) {
-              const option = document.createElement('option');
-              option.value = stateName;
-              option.textContent = stateName;
-              stateDropdown.appendChild(option);
-          });
-      }
-
-      // Add mobile-specific user experience enhancements
+      
       if (isMobile) {
         const inputs = document.querySelectorAll('input, select');
         inputs.forEach(input => {
-          // This prevents zoom-in on mobile when tapping on inputs
           input.addEventListener('focus', function() {
             this.style.fontSize = '16px';
           });
         });
         
-        // Add subtle haptic feedback for mobile users
         if ('vibrate' in navigator) {
           document.getElementById('submitBtn').addEventListener('click', function() {
             navigator.vibrate(50);
@@ -897,7 +870,6 @@
     const expNo = document.getElementById('expNo');
     const previousExpDetails = document.getElementById('previousExpDetails');
 
-    // Show/hide experience description based on radio button selection
     expYes.addEventListener('change', () => {
         previousExpDetails.style.display = 'block';
         document.getElementById('expDescription').required = true;
@@ -908,7 +880,6 @@
         document.getElementById('expDescription').value = '';
     });
 
-    // Event listeners to restrict mobile and pincode inputs to numbers only and a specific length
     document.getElementById('mobile').addEventListener('input', function(e) {
       this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
     });
@@ -925,7 +896,6 @@
         this.value = this.value.trim();
     });
 
-    // Add a listener to validate fields on blur for better user experience
     const inputs = document.querySelectorAll('input, select, textarea');
     inputs.forEach(input => {
       input.addEventListener('blur', function() {
@@ -933,19 +903,13 @@
       });
     });
 
-    /**
-     * Helper function to validate a single field and apply Bootstrap classes.
-     * @param {HTMLElement} input The input element to validate.
-     * @returns {boolean} True if the input is valid, false otherwise.
-     */
     function validateField(input) {
-      // Find the closest parent that contains both the input and its feedback divs
       const parentGroup = input.closest('.form-group, .col-md-4, .col-md-8, .col-12');
       if (!input.checkValidity()) {
         input.classList.add('is-invalid');
         input.classList.remove('is-valid');
         if (parentGroup) {
-          parentGroup.classList.remove('was-validated'); // Prevent this parent from getting the was-validated class
+          parentGroup.classList.remove('was-validated');
         }
         return false;
       } else {
@@ -958,12 +922,10 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       
-      // First, check if the form is valid using the browser's built-in check
       if (!form.checkValidity()) {
         e.stopPropagation();
-        form.classList.add('was-validated'); // Add class to show all validation feedback
+        form.classList.add('was-validated');
         
-        // Find the first invalid element and scroll to it
         const firstInvalid = form.querySelector(':invalid');
         if (firstInvalid) {
           firstInvalid.focus();
@@ -974,23 +936,17 @@
         return;
       }
       
-      // If the form is valid, proceed with submission
       form.classList.add('was-validated');
       submitButton.disabled = true;
       submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>Submitting...';
       
-      // Create and show a loading overlay
       const loadingOverlay = document.createElement('div');
       loadingOverlay.classList.add('loading-overlay');
       loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
       form.closest('.form-card').appendChild(loadingOverlay);
       
-      // Create a FormData object from the form
       const formData = new FormData(form);
       
-      // Note: In a real Google Apps Script project, you would uncomment the following lines
-      // and have a corresponding `processForm` function in your `Code.gs` file.
-      // For this example, we will simulate a successful submission.
       google.script.run
         .withSuccessHandler(function(response) {
           loadingOverlay.remove();
@@ -1001,7 +957,6 @@
             showMessage('Application submitted successfully! We will contact you shortly.', 'success');
             form.reset();
             form.classList.remove('was-validated');
-            // Remove 'is-valid' class from all inputs after reset
             inputs.forEach(input => input.classList.remove('is-valid', 'is-invalid'));
           } else {
             showMessage(response.message || 'An error occurred. Please try again.', 'danger');
@@ -1020,4 +975,5 @@
   </script>
 </body>
 </html>
+
 
