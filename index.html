@@ -1,979 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <base target="_top">
-  <title>Application Form</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="format-detection" content="telephone=no">
-  
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --primary-green: #10b981;
-      --primary-green-dark: #059669;
-      --primary-green-light: #34d399;
-      --secondary-green: #6ee7b7;
-      --accent-green: #a7f3d0;
-      --success-green: #065f46;
-      --bg-green: #ecfdf5;
-      --border-green: #d1fae5;
-      --text-dark: #1f2937;
-      --text-muted: #6b7280;
-      --text-light: #9ca3af;
-      --white: #ffffff;
-      --shadow-light: rgba(16, 185, 129, 0.1);
-      --shadow-medium: rgba(16, 185, 129, 0.2);
-      --gradient-primary: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
-      --gradient-bg: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-    }
-    
-    * {
-      box-sizing: border-box;
-    }
-    
-    body {
-      background: var(--gradient-bg);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: var(--text-dark);
-      line-height: 1.6;
-      min-height: 100vh;
-      position: relative;
-    }
-    
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(52, 211, 153, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(167, 243, 208, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: -1;
-    }
-    
-    .main-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .form-card {
-      background: var(--white);
-      border: 1px solid var(--border-green);
-      border-radius: 24px;
-      box-shadow: 
-        0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        0 10px 10px -5px rgba(0, 0, 0, 0.04),
-        0 0 0 1px var(--shadow-light);
-      padding: 3rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .form-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: var(--gradient-primary);
-    }
-    
-    .header-section {
-      text-align: center;
-      margin-bottom: 3rem;
-      position: relative;
-    }
-    
-    .form-title {
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-    }
-    
-    .form-subtitle {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin-bottom: 0;
-    }
-    
-    .icon-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      background: var(--gradient-primary);
-      border-radius: 50%;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 10px 25px var(--shadow-medium);
-    }
-    
-    .icon-badge i {
-      font-size: 2rem;
-      color: var(--white);
-    }
-    
-    .form-section {
-      margin-bottom: 2rem;
-    }
-    
-    .section-title {
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent-green);
-      position: relative;
-    }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 60px;
-      height: 2px;
-      background: var(--primary-green);
-    }
-    
-    .form-label {
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .form-label i {
-      color: var(--primary-green);
-      font-size: 1rem;
-    }
-    
-    .form-control, .form-select {
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 0.875rem 1.25rem;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      background-color: var(--white);
-      color: var(--text-dark);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .form-control:focus, .form-select:focus {
-      border-color: var(--primary-green);
-      box-shadow: 
-        0 0 0 3px var(--shadow-light),
-        0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      background-color: var(--white);
-      transform: translateY(-1px);
-    }
-    
-    .form-control.is-invalid, .form-select.is-invalid {
-      border-color: #ef4444;
-      background-color: #fef2f2;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-    }
-    
-    .form-control.is-valid, .form-select.is-valid {
-      border-color: var(--primary-green);
-      background-color: var(--bg-green);
-      box-shadow: 0 0 0 3px var(--shadow-light);
-    }
-    
-    .input-group-text {
-      background: var(--accent-green);
-      border: 2px solid #e5e7eb;
-      border-right: none;
-      color: var(--success-green);
-      font-weight: 600;
-      border-radius: 12px 0 0 12px;
-    }
-    
-    .input-group .form-control {
-      border-left: none;
-      border-radius: 0 12px 12px 0;
-    }
-    
-    .input-group:focus-within .input-group-text {
-      border-color: var(--primary-green);
-      background: var(--secondary-green);
-    }
-    
-    .btn-primary {
-      background: var(--gradient-primary);
-      border: none;
-      border-radius: 16px;
-      padding: 1rem 3rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: 
-        0 10px 15px -3px var(--shadow-medium),
-        0 4px 6px -2px var(--shadow-light);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .btn-primary:hover {
-      background: linear-gradient(135deg, var(--primary-green-dark) 0%, #047857 100%);
-      transform: translateY(-2px);
-      box-shadow: 
-        0 20px 25px -5px var(--shadow-medium),
-        0 10px 10px -5px var(--shadow-light);
-    }
-    
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-    
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-    
-    .btn-primary:disabled {
-      background: var(--text-light);
-      transform: none;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
-    
-    .alert {
-      border: none;
-      border-radius: 16px;
-      font-weight: 500;
-      margin-top: 2rem;
-      padding: 1.25rem 1.5rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-    
-    .alert-success {
-      background: var(--bg-green);
-      color: var(--success-green);
-      border-left: 4px solid var(--primary-green);
-    }
-    
-    .alert-danger {
-      background: #fef2f2;
-      color: #991b1b;
-      border-left: 4px solid #ef4444;
-    }
-    
-    .required-asterisk {
-      color: #ef4444;
-      margin-left: 2px;
-      font-weight: 600;
-    }
-    
-    .spinner-border-sm {
-      width: 1.2rem;
-      height: 1.2rem;
-      margin-right: 0.5rem;
-      border-width: 2px;
-    }
-    
-    .invalid-feedback {
-      font-weight: 500;
-      font-size: 0.875rem;
-      margin-top: 0.5rem;
-    }
-    
-    .valid-feedback {
-      color: var(--success-green);
-      font-weight: 500;
-      font-size: 0.875rem;
-      margin-top: 0.5rem;
-    }
-    
-    .loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 24px;
-      z-index: 1000;
-    }
-    
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid var(--accent-green);
-      border-top: 4px solid var(--primary-green);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .form-submitted {
-      animation: formSuccess 0.6s ease-out forwards;
-    }
-    
-    @keyframes formSuccess {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-    
-    @media (max-width: 768px) {
-      .main-container {
-        padding: 1rem 0.75rem;
-      }
-      
-      .form-card {
-        padding: 2rem 1.5rem;
-        border-radius: 20px;
-        margin-bottom: 1rem;
-      }
-      
-      .form-title {
-        font-size: 2rem;
-      }
-      
-      .form-subtitle {
-        font-size: 1rem;
-      }
-      
-      .icon-badge {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 1rem;
-      }
-      
-      .icon-badge i {
-        font-size: 1.5rem;
-      }
-      
-      .btn-primary {
-        padding: 0.875rem 2rem;
-        font-size: 1rem;
-        width: 100%;
-      }
-      
-      .form-control, .form-select {
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-      }
-      
-      .section-title {
-        font-size: 1rem;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .form-card {
-        padding: 1.5rem 1rem;
-        border-radius: 16px;
-      }
-      
-      .form-title {
-        font-size: 1.75rem;
-      }
-      
-      .header-section {
-        margin-bottom: 2rem;
-      }
-      
-      .icon-badge {
-        width: 50px;
-        height: 50px;
-      }
-      
-      .icon-badge i {
-        font-size: 1.25rem;
-      }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --text-dark: #f9fafb;
-        --text-muted: #d1d5db;
-        --white: #1f2937;
-        --bg-green: #064e3b;
-        --border-green: #065f46;
-      }
-      
-      body {
-        background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-      }
-      
-      .form-card {
-        background: #374151;
-        border-color: #4b5563;
-      }
-      
-      .form-control, .form-select {
-        background-color: #4b5563;
-        border-color: #6b7280;
-        color: #f9fafb;
-      }
-      
-      .form-control:focus, .form-select:focus {
-        background-color: #4b5563;
-      }
-    }
-    
-    .was-validated .form-control:invalid,
-    .was-validated .form-select:invalid {
-      border-color: #ef4444;
-      background-color: #fef2f2;
-    }
-    
-    .was-validated .form-control:valid,
-    .was-validated .form-select:valid {
-      border-color: var(--primary-green);
-      background-color: var(--bg-green);
-    }
-    
-    .form-check-label {
-      font-weight: 500;
-    }
-
-    .form-check-input:checked {
-      background-color: var(--primary-green);
-      border-color: var(--primary-green-dark);
-    }
-  </style>
+  <title>Application Form</title>
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="main-container">
-    <div class="form-card">
-      <div class="header-section">
-        <div class="icon-badge">
-          <i class="bi bi-person-fill-add"></i>
-        </div>
-        <h1 class="form-title">Application Form</h1>
-        <p class="form-subtitle">Join our team - Fill out all required fields to submit your application</p>
-      </div>
-      
-      <form id="applicationForm" action="https://script.google.com/macros/s/AKfycbwyaSKtBsNWYHn-Ph3sVmdyCT1cIe4aULvmCFfoLhmyArtl1VIHyu4xRgKSFrpuft4aDQ/exec" method="post" novalidate>
-        <div class="form-section">
-          <h3 class="section-title">
-            <i class="bi bi-person-circle me-2"></i>
-            Personal Information
-          </h3>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <label for="name" class="form-label">
-                <i class="bi bi-person"></i>
-                Full Name<span class="required-asterisk">*</span>
-              </label>
-              <input type="text" class="form-control" id="name" name="name" required 
-                     autocomplete="name" placeholder="Enter your full name">
-              <div class="invalid-feedback">Please provide your full name.</div>
-              <div class="valid-feedback">Looks good!</div>
-            </div>
-            
-            <div class="col-md-4">
-              <label for="mobile" class="form-label">
-                <i class="bi bi-phone"></i>
-                Mobile Number<span class="required-asterisk">*</span>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text">+91</span>
-                <input type="tel" class="form-control" id="mobile" name="mobile" required 
-                       autocomplete="tel" placeholder="10 digit number" maxlength="10" pattern="[0-9]{10}">
-              </div>
-              <div class="invalid-feedback">Please provide a valid 10-digit mobile number.</div>
-              <div class="valid-feedback">Mobile number is valid!</div>
-            </div>
-            
-            <div class="col-md-4">
-              <label for="email" class="form-label">
-                <i class="bi bi-envelope"></i>
-                Email Address<span class="required-asterisk">*</span>
-              </label>
-              <input type="email" class="form-control" id="email" name="email" required 
-                     autocomplete="email" placeholder="user@example.com">
-              <div class="invalid-feedback">Please provide a valid email address.</div>
-              <div class="valid-feedback">Email looks great!</div>
-            </div>
+  <h2>Application Form</h2>
+  <p>Join our team - Fill out all required fields to submit your application</p>
 
-            <div class="col-md-4">
-              <label for="dob" class="form-label">
-                <i class="bi bi-calendar"></i>
-                Date of Birth<span class="required-asterisk">*</span>
-              </label>
-              <input type="date" class="form-control" id="dob" name="dob" required autocomplete="bday">
-              <div class="invalid-feedback">Please select your date of birth.</div>
-              <div class="valid-feedback">Date of birth confirmed!</div>
-            </div>
-            
-            <div class="col-md-4">
-              <label for="gender" class="form-label">
-                <i class="bi bi-person-badge"></i>
-                Gender<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="gender" name="gender" required autocomplete="sex">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-              <div class="invalid-feedback">Please select your gender.</div>
-              <div class="valid-feedback">Gender selected!</div>
-            </div>
-          </div>
-        </div>
+  <form id="applicationForm">
+    <!-- Personal Information Section -->
+    <fieldset>
+      <legend>Personal Information</legend>
 
-        <div class="form-section">
-          <h3 class="section-title">
-            <i class="bi bi-house-door me-2"></i>
-            Address Details
-          </h3>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <label for="city" class="form-label">
-                <i class="bi bi-buildings"></i>
-                City<span class="required-asterisk">*</span>
-              </label>
-              <input type="text" class="form-control" id="city" name="city" required 
-                     autocomplete="address-level2" placeholder="Enter your city">
-              <div class="invalid-feedback">Please enter your city.</div>
-              <div class="valid-feedback">City looks good!</div>
-            </div>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Please provide your full name." required>
 
-            <div class="col-md-4">
-              <label for="street" class="form-label">
-                <i class="bi bi-signpost-2"></i>
-                Street
-              </label>
-              <input type="text" class="form-control" id="street" name="street" 
-                     autocomplete="street-address" placeholder="Enter your street address">
-            </div>
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" placeholder="+91" required>
 
-            <div class="col-md-4">
-              <label for="pincode" class="form-label">
-                <i class="bi bi-pin"></i>
-                Pin Code<span class="required-asterisk">*</span>
-              </label>
-              <input type="text" class="form-control" id="pincode" name="pincode" required 
-                     autocomplete="postal-code" placeholder="Enter your pincode" maxlength="6" pattern="[0-9]{6}">
-              <div class="invalid-feedback">Please provide a valid 6-digit pincode.</div>
-              <div class="valid-feedback">Pincode looks good!</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-section">
-          <h3 class="section-title">
-            <i class="bi bi-mortarboard me-2"></i>
-            Educational Details
-          </h3>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <label for="university" class="form-label">
-                <i class="bi bi-building"></i>
-                University/College/School Name<span class="required-asterisk">*</span>
-              </label>
-              <input type="text" class="form-control" id="university" name="university" required 
-                     autocomplete="organization" placeholder="e.g., ABC University">
-              <div class="invalid-feedback">Please provide your institution name.</div>
-              <div class="valid-feedback">Looks good!</div>
-            </div>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="Please provide a valid email address." required>
 
-            <div class="col-md-4">
-              <label for="course" class="form-label">
-                <i class="bi bi-journal-text"></i>
-                Course/Subject Name<span class="required-asterisk">*</span>
-              </label>
-              <input type="text" class="form-control" id="course" name="course" required 
-                     autocomplete="off" placeholder="e.g., Computer Science">
-              <div class="invalid-feedback">Please provide your course name.</div>
-              <div class="valid-feedback">Looks good!</div>
-            </div>
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" required>
 
-            <div class="col-md-4">
-              <label for="graduation" class="form-label">
-                <i class="bi bi-award"></i>
-                Education Level<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="graduation" name="graduation" required autocomplete="education">
-                <option value="">Select Education Level</option>
-                <option value="10th Pass out">10th Pass</option>
-                <option value="Intermediate">12th/Intermediate</option>
-                <option value="Degree">Graduate Degree</option>
-                <option value="Post Graduate">Post Graduate</option>
-              </select>
-              <div class="invalid-feedback">Please select your education level.</div>
-              <div class="valid-feedback">Education level confirmed!</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-section">
-          <h3 class="section-title">
-            <i class="bi bi-briefcase me-2"></i>
-            Internship Details
-          </h3>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <label for="applyingFor" class="form-label">
-                <i class="bi bi-briefcase"></i>
-                Position Applied For<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="applyingFor" name="applyingFor" required>
-                <option value="">Select Position</option>
-                <option value="HR">Human Resources (HR)</option>
-                <option value="CCE">Customer Care Executive (CCE)</option>
-                <option value="Admin">Administration</option>
-                <option value="TL">Team Leader (TL)</option>
-                <option value="Manager">Manager</option>
-              </select>
-              <div class="invalid-feedback">Please select the position you're applying for.</div>
-              <div class="valid-feedback">Position selected!</div>
-            </div>
-            
-            <div class="col-md-4">
-              <label for="domain" class="form-label">
-                <i class="bi bi-lightbulb"></i>
-                Domain<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="domain" name="domain" required>
-                <option value="">Select Domain</option>
-                <option value="Sales">Sales</option>
-                <option value="HR">HR</option>
-                <option value="Finance">Finance</option>
-                <option value="Graphic Designing">Graphic Designing</option>
-                <option value="Video Editing">Video Editing</option>
-                <option value="Content Writing">Content Writing</option>
-              </select>
-              <div class="invalid-feedback">Please select a domain.</div>
-              <div class="valid-feedback">Domain selected!</div>
-            </div>
-            
-            <div class="col-md-4">
-              <label for="duration" class="form-label">
-                <i class="bi bi-clock-history"></i>
-                Duration<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="duration" name="duration" required>
-                <option value="">Select Duration</option>
-                <option value="3 Months">3 Months</option>
-                <option value="4 Months">4 Months</option>
-                <option value="6 Months">6 Months</option>
-              </select>
-              <div class="invalid-feedback">Please select a duration.</div>
-              <div class="valid-feedback">Duration selected!</div>
-            </div>
+      <label for="gender">Gender</label>
+      <select id="gender" required>
+        <option>Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </fieldset>
 
-            <div class="col-md-4">
-              <label for="contactMethod" class="form-label">
-                <i class="bi bi-chat-dots"></i>
-                Preferred Contact Method<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="contactMethod" name="contactMethod" required>
-                <option value="">Select Contact Method</option>
-                <option value="Phone">Phone Call</option>
-                <option value="WhatsApp or Email">WhatsApp or Email</option>
-                <option value="Both">Both (Phone & Digital)</option>
-              </select>
-              <div class="invalid-feedback">Please select your preferred contact method.</div>
-              <div class="valid-feedback">Contact method selected!</div>
-            </div>
-            
-            <div class="col-md-4">
-              <label for="tpoName" class="form-label">
-                <i class="bi bi-person-badge"></i>
-                TPO Name
-              </label>
-              <input type="text" class="form-control" id="tpoName" name="tpoName" 
-                     autocomplete="off" placeholder="TPO's full name">
-            </div>
+    <!-- Address Details -->
+    <fieldset>
+      <legend>Address Details</legend>
+      <label for="state">State</label>
+      <input type="text" id="state" placeholder="Enter your state">
 
-            <div class="col-md-4">
-              <label for="tpoMobile" class="form-label">
-                <i class="bi bi-phone"></i>
-                TPO Contact Number
-              </label>
-              <input type="tel" class="form-control" id="tpoMobile" name="tpoMobile" 
-                     autocomplete="off" placeholder="TPO's 10-digit number" maxlength="10" pattern="[0-9]{10}">
-            </div>
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Enter your city">
 
-            <div class="col-md-4">
-              <label for="tpoEmail" class="form-label">
-                <i class="bi bi-envelope"></i>
-                TPO Email
-              </label>
-              <input type="email" class="form-control" id="tpoEmail" name="tpoEmail" 
-                     autocomplete="off" placeholder="tpo@example.com">
-            </div>
+      <label for="street">Street</label>
+      <input type="text" id="street">
 
-            <div class="col-md-8">
-              <label for="resume" class="form-label">
-                <i class="bi bi-file-earmark-arrow-up"></i>
-                Upload CV/Resume<span class="required-asterisk">*</span>
-              </label>
-              <input class="form-control" type="file" id="resume" name="resume" required>
-              <div class="invalid-feedback">Please upload your CV/Resume.</div>
-              <div class="valid-feedback">File selected!</div>
-            </div>
+      <label for="pincode">Pin Code</label>
+      <input type="number" id="pincode" placeholder="6-digit Pincode" required>
+    </fieldset>
 
-          </div>
-        </div>
+    <!-- Education Details -->
+    <fieldset>
+      <legend>Education Details</legend>
+      <label for="college">University/College/School</label>
+      <input type="text" id="college">
 
-        <div class="form-section">
-          <h3 class="section-title">
-            <i class="bi bi-clipboard-check me-2"></i>
-            Previous Internship Experience
-          </h3>
-          <div class="row g-4">
-            <div class="col-12">
-              <label class="form-label">Any previous internship experience?</label>
-              <div class="d-flex gap-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="previousExperience" id="expYes" value="Yes">
-                  <label class="form-check-label" for="expYes">Yes</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="previousExperience" id="expNo" value="No" checked>
-                  <label class="form-check-label" for="expNo">No</label>
-                </div>
-              </div>
-            </div>
-            <div class="col-12" id="previousExpDetails" style="display:none;">
-              <label for="expDescription" class="form-label">
-                <i class="bi bi-pencil-square"></i>
-                Briefly describe your responsibilities and tasks during the internship.
-              </label>
-              <textarea class="form-control" id="expDescription" name="expDescription" rows="4"></textarea>
-            </div>
-          </div>
-        </div>
-        
-        <div class="row mt-5">
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-              <i class="bi bi-send me-2"></i>
-              Submit Application
-            </button>
-          </div>
-        </div>
-      </form>
-      
-      <div id="messageDiv"></div>
-    </div>
-  </div>
+      <label for="course">Course/Subject</label>
+      <input type="text" id="course">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-  
-<script>
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    function showMessage(message, type) {
-        const messageDiv = document.getElementById('messageDiv');
-        const alertHtml = `
-            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `;
-        messageDiv.innerHTML = alertHtml;
-        messageDiv.scrollIntoView({ behavior: 'smooth' });
-    }
+      <label for="education">Education Level</label>
+      <select id="education">
+        <option>Select Education Level</option>
+        <option>10th Pass</option>
+        <option>12th/Intermediate</option>
+        <option>Graduate Degree</option>
+        <option>Post Graduate</option>
+      </select>
+    </fieldset>
 
-    window.onload = function() {
-      const stateDropdown = document.getElementById('state');
-      
-      const loadingOption = document.createElement('option');
-      loadingOption.textContent = "Loading states...";
-      loadingOption.disabled = true;
-      stateDropdown.appendChild(loadingOption);
-      
-      // Ye code Apps Script se states load karega.
-      google.script.run.withSuccessHandler(function(states) {
-        stateDropdown.innerHTML = '<option value="">Select State</option>';
-        if (states && states.length > 0) {
-          states.forEach(function(stateName) {
-            const option = document.createElement('option');
-            option.value = stateName;
-            option.textContent = stateName;
-            stateDropdown.appendChild(option);
-          });
-        }
-      }).withFailureHandler(function(error) {
-        console.error("Error fetching states: " + error.message);
-        stateDropdown.innerHTML = '<option value="">Error loading states</option>';
-      }).getIndianStates();
-      
-      if (isMobile) {
-        const inputs = document.querySelectorAll('input, select');
-        inputs.forEach(input => {
-          input.addEventListener('focus', function() {
-            this.style.fontSize = '16px';
-          });
-        });
-        
-        if ('vibrate' in navigator) {
-          document.getElementById('submitBtn').addEventListener('click', function() {
-            navigator.vibrate(50);
-          });
-        }
-      }
-    };
+    <!-- Internship Details -->
+    <fieldset>
+      <legend>Internship Details</legend>
+      <label for="position">Position Applied For</label>
+      <select id="position">
+        <option>Select Position</option>
+        <option>Human Resources (HR)</option>
+        <option>Customer Care Executive (CCE)</option>
+        <option>Administration</option>
+        <option>Team Leader (TL)</option>
+        <option>Manager</option>
+      </select>
 
-    const form = document.getElementById('applicationForm');
-    const submitButton = document.getElementById('submitBtn');
-    const messageDiv = document.getElementById('messageDiv');
-    const expYes = document.getElementById('expYes');
-    const expNo = document.getElementById('expNo');
-    const previousExpDetails = document.getElementById('previousExpDetails');
+      <label for="domain">Domain</label>
+      <select id="domain">
+        <option>Select Domain</option>
+        <option>Sales</option>
+        <option>HR</option>
+        <option>Finance</option>
+        <option>Graphic Designing</option>
+        <option>Video Editing</option>
+        <option>Content Writing</option>
+      </select>
 
-    expYes.addEventListener('change', () => {
-        previousExpDetails.style.display = 'block';
-        document.getElementById('expDescription').required = true;
-    });
-    expNo.addEventListener('change', () => {
-        previousExpDetails.style.display = 'none';
-        document.getElementById('expDescription').required = false;
-        document.getElementById('expDescription').value = '';
-    });
+      <label for="duration">Duration</label>
+      <select id="duration">
+        <option>Select Duration</option>
+        <option>3 Months</option>
+        <option>4 Months</option>
+        <option>6 Months</option>
+      </select>
 
-    document.getElementById('mobile').addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
-    });
-    
-    document.getElementById('pincode').addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
-    });
+      <label for="contact">Preferred Contact Method</label>
+      <select id="contact">
+        <option>Select Contact Method</option>
+        <option>Phone Call</option>
+        <option>WhatsApp or Email</option>
+        <option>Both (Phone & Digital)</option>
+      </select>
 
-    document.getElementById('tpoMobile').addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
-    });
-    
-    document.getElementById('tpoEmail').addEventListener('input', function(e) {
-        this.value = this.value.trim();
-    });
+      <label for="tpoName">TPO Name</label>
+      <input type="text" id="tpoName">
 
-    const inputs = document.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-      input.addEventListener('blur', function() {
-        validateField(this);
-      });
-    });
+      <label for="tpoContact">TPO Contact Number</label>
+      <input type="text" id="tpoContact">
 
-    function validateField(input) {
-      const parentGroup = input.closest('.form-group, .col-md-4, .col-md-8, .col-12');
-      if (!input.checkValidity()) {
-        input.classList.add('is-invalid');
-        input.classList.remove('is-valid');
-        if (parentGroup) {
-          parentGroup.classList.remove('was-validated');
-        }
-        return false;
-      } else {
-        input.classList.add('is-valid');
-        input.classList.remove('is-invalid');
-        return true;
-      }
-    }
+      <label for="tpoEmail">TPO Email</label>
+      <input type="email" id="tpoEmail">
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-        form.classList.add('was-validated');
-        
-        const firstInvalid = form.querySelector(':invalid');
-        if (firstInvalid) {
-          firstInvalid.focus();
-          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-        
-        showMessage('Please complete all required fields correctly.', 'danger');
-        return;
-      }
-      
-      form.classList.add('was-validated');
-      submitButton.disabled = true;
-      submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>Submitting...';
-      
-      const loadingOverlay = document.createElement('div');
-      loadingOverlay.classList.add('loading-overlay');
-      loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
-      form.closest('.form-card').appendChild(loadingOverlay);
-      
-      const formData = new FormData(form);
-      
-      google.script.run
-        .withSuccessHandler(function(response) {
-          loadingOverlay.remove();
-          submitButton.disabled = false;
-          submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
-          
-          if (response.success) {
-            showMessage('Application submitted successfully! We will contact you shortly.', 'success');
-            form.reset();
-            form.classList.remove('was-validated');
-            inputs.forEach(input => input.classList.remove('is-valid', 'is-invalid'));
-          } else {
-            showMessage(response.message || 'An error occurred. Please try again.', 'danger');
-          }
-        })
-        .withFailureHandler(function(error) {
-          loadingOverlay.remove();
-          submitButton.disabled = false;
-          submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
-          
-          console.error("Submission failed:", error);
-          showMessage('An error occurred. Please try again later. Error: ' + error.message, 'danger');
-        })
-        .processForm(formData);
-    });
-  </script>
+      <label for="resume">Upload CV/Resume</label>
+      <input type="file" id="resume">
+
+      <label>Previous Internship Experience</label>
+      <input type="radio" name="exp" value="Yes"> Yes
+      <input type="radio" name="exp" value="No"> No
+
+      <textarea placeholder="Briefly describe your responsibilities and tasks"></textarea>
+    </fieldset>
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <!-- Link JS -->
+  <script src="code.js"></script>
 </body>
 </html>
-
-
