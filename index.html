@@ -574,18 +574,6 @@
           </h3>
           <div class="row g-4">
             <div class="col-md-4">
-              <label for="state" class="form-label">
-                <i class="bi bi-geo-alt"></i>
-                State<span class="required-asterisk">*</span>
-              </label>
-              <select class="form-select" id="state" name="state" required autocomplete="address-level1">
-                <option value="">Select State</option>
-              </select>
-              <div class="invalid-feedback">Please select your state.</div>
-              <div class="valid-feedback">State selected!</div>
-            </div>
-
-            <div class="col-md-4">
               <label for="city" class="form-label">
                 <i class="bi bi-buildings"></i>
                 City<span class="required-asterisk">*</span>
@@ -835,32 +823,9 @@
         messageDiv.innerHTML = alertHtml;
         messageDiv.scrollIntoView({ behavior: 'smooth' });
     }
-
+    
     // Set up the form and its elements after the page has fully loaded
     window.onload = function() {
-      const stateDropdown = document.getElementById('state');
-      
-      const loadingOption = document.createElement('option');
-      loadingOption.textContent = "Loading states...";
-      loadingOption.disabled = true;
-      stateDropdown.appendChild(loadingOption);
-      
-      // Ye code block Google Apps Script se states load karega.
-      google.script.run.withSuccessHandler(function(states) {
-        stateDropdown.innerHTML = '<option value="">Select State</option>';
-        if (states && states.length > 0) {
-          states.forEach(function(stateName) {
-            const option = document.createElement('option');
-            option.value = stateName;
-            option.textContent = stateName;
-            stateDropdown.appendChild(option);
-          });
-        }
-      }).withFailureHandler(function(error) {
-        console.error("Error fetching states: " + error.message);
-        stateDropdown.innerHTML = '<option value="">Error loading states</option>';
-      }).getIndianStates();
-      
       // Add mobile-specific user experience enhancements
       if (isMobile) {
         const inputs = document.querySelectorAll('input, select');
@@ -978,7 +943,9 @@
       // Create a FormData object from the form
       const formData = new FormData(form);
       
-      // Ab ye block Apps Script ke 'processForm' function ko call karega.
+      // Note: In a real Google Apps Script project, you would uncomment the following lines
+      // and have a corresponding `processForm` function in your `Code.gs` file.
+      // For this example, we will simulate a successful submission.
       google.script.run
         .withSuccessHandler(function(response) {
           loadingOverlay.remove();
