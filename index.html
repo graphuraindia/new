@@ -808,7 +808,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
   
-  <script>
+<script>
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
     // Global function to display a message to the user
@@ -823,9 +823,54 @@
         messageDiv.innerHTML = alertHtml;
         messageDiv.scrollIntoView({ behavior: 'smooth' });
     }
-    
+
+    // This function simulates fetching Indian states. In a real-world Google Apps Script project,
+    // you would have a corresponding function named `getIndianStates()` in your `Code.gs` file.
+    function getIndianStates() {
+        // This is mock data for the example.
+        return ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
+    }
+
     // Set up the form and its elements after the page has fully loaded
     window.onload = function() {
+      const stateDropdown = document.getElementById('state');
+      
+      const loadingOption = document.createElement('option');
+      loadingOption.textContent = "Loading states...";
+      loadingOption.disabled = true;
+      stateDropdown.appendChild(loadingOption);
+      
+      // We will simulate the google.script.run call with our mock function for demonstration purposes.
+      // If this were a real Apps Script project, this would be uncommented:
+      /*
+      google.script.run.withSuccessHandler(function(states) {
+        stateDropdown.innerHTML = '<option value="">Select State</option>';
+        if (states && states.length > 0) {
+          states.forEach(function(stateName) {
+            const option = document.createElement('option');
+            option.value = stateName;
+            option.textContent = stateName;
+            stateDropdown.appendChild(option);
+          });
+        }
+      }).withFailureHandler(function(error) {
+        console.error("Error fetching states: " + error.message);
+        stateDropdown.innerHTML = '<option value="">Error loading states</option>';
+      }).getIndianStates();
+      */
+
+      // Using the mock function for this standalone HTML file
+      const states = getIndianStates();
+      stateDropdown.innerHTML = '<option value="">Select State</option>';
+      if (states && states.length > 0) {
+          states.forEach(function(stateName) {
+              const option = document.createElement('option');
+              option.value = stateName;
+              option.textContent = stateName;
+              stateDropdown.appendChild(option);
+          });
+      }
+
       // Add mobile-specific user experience enhancements
       if (isMobile) {
         const inputs = document.querySelectorAll('input, select');
@@ -975,3 +1020,4 @@
   </script>
 </body>
 </html>
+
