@@ -380,7 +380,7 @@
       
       // We will simulate the google.script.run call with our mock function for demonstration purposes.
       // If this were a real Apps Script project, this would be uncommented:
-      /*
+      
       google.script.run.withSuccessHandler(function(states) {
         stateDropdown.innerHTML = '<option value="">Select State</option>';
         if (states && states.length > 0) {
@@ -395,7 +395,7 @@
         console.error("Error fetching states: " + error.message);
         stateDropdown.innerHTML = '<option value="">Error loading states</option>';
       }).getIndianStates();
-      */
+      
 
       // Using the mock function for this standalone HTML file
       const states = getIndianStates();
@@ -549,6 +549,7 @@
         .processForm(formData);
       */
       
+     /*
       // Simulate success for this standalone example
       setTimeout(() => {
         showMessage('Application submitted successfully! We will contact you shortly.', 'success');
@@ -564,8 +565,9 @@
         submitButton.disabled = false;
         submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
       }, 2000); // Simulate a 2-second server response time
-    });
+      */
   </script>
 </body>
 </html>
+
 
