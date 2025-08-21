@@ -362,10 +362,8 @@
         messageDiv.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // This function simulates fetching Indian states. In a real-world Google Apps Script project,
-    // you would have a corresponding function named `getIndianStates()` in your `Code.gs` file.
+    // This function simulates fetching Indian states.
     function getIndianStates() {
-        // This is mock data for the example.
         return ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
     }
 
@@ -378,9 +376,7 @@
       loadingOption.disabled = true;
       stateDropdown.appendChild(loadingOption);
       
-      // We will simulate the google.script.run call with our mock function for demonstration purposes.
-      // If this were a real Apps Script project, this would be uncommented:
-      
+      // Is code block ko uncomment rakhen (yehi Google Apps Script se states laayega)
       google.script.run.withSuccessHandler(function(states) {
         stateDropdown.innerHTML = '<option value="">Select State</option>';
         if (states && states.length > 0) {
@@ -396,8 +392,8 @@
         stateDropdown.innerHTML = '<option value="">Error loading states</option>';
       }).getIndianStates();
       
-
-      // Using the mock function for this standalone HTML file
+      // Is code block ko poori tarah comment kar dein
+      /*
       const states = getIndianStates();
       stateDropdown.innerHTML = '<option value="">Select State</option>';
       if (states && states.length > 0) {
@@ -408,7 +404,8 @@
               stateDropdown.appendChild(option);
           });
       }
-
+      */
+      
       // Add mobile-specific user experience enhancements
       if (isMobile) {
         const inputs = document.querySelectorAll('input, select');
@@ -526,48 +523,54 @@
       // Create a FormData object from the form
       const formData = new FormData(form);
       
-      // Note: In a real Google Apps Script project, you would uncomment the following lines
-      // and have a corresponding `processForm` function in your `Code.gs` file.
-      // For this example, we will simulate a successful submission.
-      /*
+      // Is block ko uncomment rakhen (yehi form data submit karega)
       google.script.run
         .withSuccessHandler(function(response) {
+          // Hide the loading overlay and re-enable the button
+          loadingOverlay.remove();
+          submitButton.disabled = false;
+          submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
+          
           if (response.success) {
             showMessage('Application submitted successfully! We will contact you shortly.', 'success');
             form.reset();
             form.classList.remove('was-validated');
             // Remove 'is-valid' class from all inputs after reset
-            inputs.forEach(input => input.classList.remove('is-valid'));
+            inputs.forEach(input => input.classList.remove('is-valid', 'is-invalid'));
           } else {
             showMessage(response.message || 'An error occurred. Please try again.', 'danger');
           }
         })
         .withFailureHandler(function(error) {
+          // Hide the loading overlay and re-enable the button
+          loadingOverlay.remove();
+          submitButton.disabled = false;
+          submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
+          
           console.error("Submission failed:", error);
-          showMessage('An error occurred. Please try again later.', 'danger');
+          showMessage('An error occurred. Please try again later. Error: ' + error.message, 'danger');
         })
         .processForm(formData);
-      */
-      
-     /*
-      // Simulate success for this standalone example
-      setTimeout(() => {
-        showMessage('Application submitted successfully! We will contact you shortly.', 'success');
-        form.reset();
-        form.classList.remove('was-validated');
-        // Manually remove is-valid classes
-        inputs.forEach(input => {
-            input.classList.remove('is-valid', 'is-invalid');
-        });
         
-        // Hide the loading overlay and re-enable the button
-        loadingOverlay.remove();
-        submitButton.disabled = false;
-        submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
-      }, 2000); // Simulate a 2-second server response time
+      // Is block ko poori tarah comment kar dein
+      /*
+       // Simulate success for this standalone example
+       setTimeout(() => {
+         showMessage('Application submitted successfully! We will contact you shortly.', 'success');
+         form.reset();
+         form.classList.remove('was-validated');
+         // Manually remove is-valid classes
+         inputs.forEach(input => {
+             input.classList.remove('is-valid', 'is-invalid');
+         });
+         
+         // Hide the loading overlay and re-enable the button
+         loadingOverlay.remove();
+         submitButton.disabled = false;
+         submitButton.innerHTML = '<i class="bi bi-send me-2"></i>Submit Application';
+       }, 2000); // Simulate a 2-second server response time
       */
+    });
   </script>
 </body>
 </html>
-
-
